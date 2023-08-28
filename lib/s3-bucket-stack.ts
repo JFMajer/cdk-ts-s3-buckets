@@ -16,6 +16,7 @@ class L3Bucket extends Construct {
     });
   }
 }
+
 export class S3BucketStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -32,6 +33,7 @@ export class S3BucketStack extends cdk.Stack {
         },
       ],
     });
+
 
     // creates s3 bucket using l1 construct
     new CfnBucket(this, "MyL1Bucket", {
