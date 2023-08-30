@@ -24,7 +24,7 @@ export class S3BucketStack extends cdk.Stack {
     const randomNum = generateRandomNumber(10000000, 99999999);
 
     // creates s3 bucket using l2 construct
-    new Bucket(this, "MyL2Bucket", {
+    const myL2Bucket = new Bucket(this, "MyL2Bucket", {
       versioned: true,
       bucketName: `my-l2-bucket-${randomNum}`,
       lifecycleRules: [
@@ -34,6 +34,11 @@ export class S3BucketStack extends cdk.Stack {
       ],
     });
 
+    console.log(`My L2 Bucket Name: ${myL2Bucket.bucketName}`);
+
+    new cdk.CfnOutput(this, "MyL2BucketName", {
+      value: myL2Bucket.bucketName,
+    });
 
     // creates s3 bucket using l1 construct
     new CfnBucket(this, "MyL1Bucket", {
