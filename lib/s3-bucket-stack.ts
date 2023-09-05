@@ -23,13 +23,21 @@ export class S3BucketStack extends cdk.Stack {
 
     const randomNum = generateRandomNumber(10000000, 99999999);
 
+    const duration = new cdk.CfnParameter(this, 'duration', {
+      default: 5,
+      minLength: 1,
+      maxLength: 10,
+      type: 'Number',
+    })
+
     // creates s3 bucket using l2 construct
     const myL2Bucket = new Bucket(this, "MyL2Bucket", {
       versioned: true,
       bucketName: `my-l2-bucket-${randomNum}`,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
       lifecycleRules: [
         {
-          expiration: cdk.Duration.days(2),
+          expiration: cdk.Duration.days(duration.valueAsNumber),
         },
       ],
     });
