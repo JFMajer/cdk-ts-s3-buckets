@@ -3,19 +3,19 @@ import { Bucket, CfnBucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
-class L3Bucket extends Construct {
-  constructor(scope: Construct, id: string, expirationInDays?: number) {
-    super(scope, id);
+// class L3Bucket extends Construct {
+//   constructor(scope: Construct, id: string, expirationInDays?: number) {
+//     super(scope, id);
 
-    new Bucket(this, "MyL3Bucket", {
-      lifecycleRules: [
-        {
-          expiration: cdk.Duration.days(expirationInDays || 2),
-        },
-      ],
-    });
-  }
-}
+//     new Bucket(this, "MyL3Bucket", {
+//       lifecycleRules: [
+//         {
+//           expiration: cdk.Duration.days(expirationInDays || 2),
+//         },
+//       ],
+//     });
+//   }
+// }
 
 export class S3BucketStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -49,19 +49,19 @@ export class S3BucketStack extends cdk.Stack {
     });
 
     // creates s3 bucket using l1 construct
-    new CfnBucket(this, "MyL1Bucket", {
-      lifecycleConfiguration: {
-        rules: [
-          {
-            expirationInDays: 2,
-            status: "Enabled",
-          },
-        ],
-      },
-    });
+    // new CfnBucket(this, "MyL1Bucket", {
+    //   lifecycleConfiguration: {
+    //     rules: [
+    //       {
+    //         expirationInDays: 2,
+    //         status: "Enabled",
+    //       },
+    //     ],
+    //   },
+    // });
 
     // creates s3 bucket using l3 construct
-    new L3Bucket(this, "MyL3Bucket", 3);
+    // new L3Bucket(this, "MyL3Bucket", 3);
 
   }
 }
