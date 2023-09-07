@@ -2,16 +2,15 @@ import * as cdk from "aws-cdk-lib";
 import { Bucket, CfnBucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 
+const appName: string = "photos";
 export class PhotosStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const randomNum = generateRandomNumber(10000000, 99999999);
-
     // creates s3 bucket using l2 construct
     const myL2Bucket = new Bucket(this, "PhotosBucket", {
-      versioned: true,
-      bucketName: `my-l2-bucket-${randomNum}`,
+      versioned: false,
+      bucketName: `my-l2-bucket-${appName}`,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       lifecycleRules: [
         {
@@ -28,6 +27,4 @@ export class PhotosStack extends cdk.Stack {
   }
 }
 
-function generateRandomNumber(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+
