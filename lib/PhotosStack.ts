@@ -2,14 +2,14 @@ import * as cdk from "aws-cdk-lib";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 import { STSClient, GetCallerIdentityCommand } from "@aws-sdk/client-sts";
-import { fromIni } from "@aws-sdk/credential-providers";
+import { fromSSO } from "@aws-sdk/credential-providers";
 import { Fn } from "aws-cdk-lib";
 
 const REGION = "eu-north-1";
 
 const client = new STSClient({
   region: REGION,
-  credentials: fromIni({ profile: "dev" }),
+  credentials: fromSSO({ profile: "dev" }),
 });
 const command = new GetCallerIdentityCommand({});
 const response = fetchData()

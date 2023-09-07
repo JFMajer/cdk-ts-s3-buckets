@@ -13,4 +13,3 @@ This project is a simple example of how to create S3 buckets using L1, L2 and L3
 * `cdk doctor` - Check the CDK environment and generate report
 * `cdk destroy` - Destroy the stack
 * `cdk deploy --parameters bucketName=cdk-bucket-1` - Deploy the stack with parameters
-* `cdk deploy --app 
