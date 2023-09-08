@@ -4,17 +4,21 @@ import { Construct } from "constructs";
 import { Fn } from "aws-cdk-lib";
 import { Runtime, Code } from "aws-cdk-lib/aws-lambda";
 
+interface PhotosHandlerStackProps extends cdk.StackProps {
+  targetBucketARN: string;
+}
+
 
 const appName: string = "photos";
 export class PhotosHandlerStack extends cdk.Stack {
   private stackSuffix: string;
 
 
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props: PhotosHandlerStackProps) {
     super(scope, id, props);
     this.generateStackSuffix();
 
-    const targetBucket = Fn.importValue('photos-bucket');
+    // const targetBucket = Fn.importValue('photos-bucket');
     
     const PhotosHandlerFunction = new LambdaFunction(this, 'PhotosHandler', {
       runtime: Runtime.NODEJS_18_X,
@@ -26,7 +30,7 @@ export class PhotosHandlerStack extends cdk.Stack {
         }
       `),
       environment: {
-        TARGET_BUCKET: targetBucket,
+        TARGET_BUCKET: props.targetBucketARN,
       }
     });
     

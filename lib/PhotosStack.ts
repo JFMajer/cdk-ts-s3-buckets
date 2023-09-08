@@ -20,6 +20,7 @@ console.log(response);
 const appName: string = "photos";
 export class PhotosStack extends cdk.Stack {
   private stackSuffix: string;
+  public readonly photosBucketARN: string;
 
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -36,16 +37,18 @@ export class PhotosStack extends cdk.Stack {
       ],
     });
 
+    this.photosBucketARN = myL2Bucket.bucketArn;
+
     console.log(`My L2 Bucket Name: ${myL2Bucket.bucketName}`);
 
     new cdk.CfnOutput(this, "MyL2BucketName", {
       value: myL2Bucket.bucketName,
     });
 
-    new cdk.CfnOutput(this, 'photos-bucket', {
-      value: myL2Bucket.bucketArn,
-      exportName: 'photos-bucket',
-    });
+    // new cdk.CfnOutput(this, 'photos-bucket', {
+    //   value: myL2Bucket.bucketArn,
+    //   exportName: 'photos-bucket',
+    // });
 
   }
 
