@@ -41,6 +41,12 @@ export class PhotosStack extends cdk.Stack {
     new cdk.CfnOutput(this, "MyL2BucketName", {
       value: myL2Bucket.bucketName,
     });
+
+    new cdk.CfnOutput(this, 'photos-bucket', {
+      value: myL2Bucket.bucketArn,
+      exportName: 'photos-bucket',
+    });
+
   }
 
   private generateStackSuffix() {
